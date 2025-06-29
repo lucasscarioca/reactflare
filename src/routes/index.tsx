@@ -9,6 +9,7 @@ import {
 	Lock,
 	CreditCard,
 	Palette,
+	Menu,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -21,6 +22,7 @@ import {
 	AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Logo } from '@/components/logo'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 
 export const Route = createFileRoute('/')({
 	component: LandingPage,
@@ -33,7 +35,7 @@ function LandingPage() {
 			<nav className='border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50'>
 				<div className='container mx-auto flex h-16 items-center justify-between'>
 					<Logo />
-					<div className='flex items-center space-x-4'>
+					<div className='hidden md:flex items-center space-x-4'>
 						<a
 							href='#pricing'
 							className='text-sm font-medium text-muted-foreground hover:text-foreground'
@@ -46,18 +48,58 @@ function LandingPage() {
 						>
 							FAQ
 						</a>
-						<Button variant='ghost' asChild>
+						<Button variant='outline' asChild>
 							<Link to='/login'>Sign In</Link>
 						</Button>
 						<Button asChild>
 							<Link to='/register'>Sign Up</Link>
 						</Button>
 					</div>
+					<div className='md:hidden'>
+						<Sheet>
+							<SheetTrigger asChild>
+								<Button variant='ghost' size='icon'>
+									<Menu className='h-6 w-6' />
+								</Button>
+							</SheetTrigger>
+							<SheetContent side='right'>
+								<div className='h-full flex flex-col gap-8 p-4'>
+									<div className='flex shrink w-full items-center gap-4'>
+										<Button variant='outline' asChild>
+											<Link to='/login'>Sign In</Link>
+										</Button>
+										<Button asChild>
+											<Link to='/register'>Sign Up</Link>
+										</Button>
+									</div>
+									<div className='flex-1 flex flex-col gap-2'>
+										<Button
+											variant='ghost'
+											className='justify-start'
+											asChild
+										>
+											<a href='#pricing'>Pricing</a>
+										</Button>
+										<Button
+											variant='ghost'
+											className='justify-start'
+											asChild
+										>
+											<a href='#faq'>FAQ</a>
+										</Button>
+									</div>
+									<div className='shrink flex items-center justify-end w-full'>
+										<ThemeToggle />
+									</div>
+								</div>
+							</SheetContent>
+						</Sheet>
+					</div>
 				</div>
 			</nav>
 
 			{/* Hero Section */}
-			<section className='flex-1 flex items-center justify-center'>
+			<section className='flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8'>
 				<div className='container mx-auto py-16 sm:py-24 flex flex-col items-center justify-center text-center'>
 					<div className='mx-auto max-w-4xl'>
 						<h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight'>
@@ -103,7 +145,7 @@ function LandingPage() {
 			</section>
 
 			{/* Features Section */}
-			<section className='container mx-auto py-16 sm:py-24'>
+			<section className='container mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8'>
 				<div className='mx-auto max-w-4xl text-center'>
 					<h2 className='text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight'>
 						Everything you need to build and launch
@@ -134,7 +176,10 @@ function LandingPage() {
 			</section>
 
 			{/* Pricing Section */}
-			<section id='pricing' className='container mx-auto py-16 sm:py-24'>
+			<section
+				id='pricing'
+				className='container mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8'
+			>
 				<div className='mx-auto max-w-4xl text-center'>
 					<h2 className='text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight'>
 						Simple, transparent pricing
@@ -144,7 +189,7 @@ function LandingPage() {
 						plans include our core features.
 					</p>
 				</div>
-				<div className='mt-12 sm:mt-16 grid gap-6 sm:gap-8 grid-cols-1 lg:grid-cols-3'>
+				<div className='mt-12 sm:mt-16 grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
 					{pricingPlans.map(plan => (
 						<div
 							key={plan.name}
@@ -153,7 +198,7 @@ function LandingPage() {
 							}`}
 						>
 							{plan.popular && (
-								<div className='mb-4 absolute -top-8 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary'>
+								<div className='mb-4 absolute left-2 top-2 inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary'>
 									<Star className='mr-1 h-4 w-4' />
 									Most Popular
 								</div>
@@ -198,7 +243,10 @@ function LandingPage() {
 			</section>
 
 			{/* FAQ Section */}
-			<section id='faq' className='container mx-auto py-16 sm:py-24'>
+			<section
+				id='faq'
+				className='container mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8'
+			>
 				<div className='mx-auto max-w-4xl'>
 					<div className='text-center'>
 						<h2 className='text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight'>
@@ -230,7 +278,7 @@ function LandingPage() {
 			</section>
 
 			{/* CTA Section */}
-			<section className='container mx-auto py-16 sm:py-24'>
+			<section className='container mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8'>
 				<div className='mx-auto max-w-4xl rounded-lg border bg-card p-8 sm:p-12 text-center'>
 					<h2 className='text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight'>
 						Ready to get started?
@@ -257,8 +305,8 @@ function LandingPage() {
 
 			{/* Footer */}
 			<footer className='border-t bg-background mt-auto'>
-				<div className='container mx-auto py-8 sm:py-12'>
-					<div className='grid gap-8 md:grid-cols-4'>
+				<div className='container mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8'>
+					<div className='grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4'>
 						<div className='space-y-4'>
 							<Logo />
 							<p className='text-sm text-muted-foreground'>
