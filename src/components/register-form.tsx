@@ -3,12 +3,49 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from '@/components/ui/form'
+
+const formSchema = z
+	.object({
+		email: z.string().email({ message: 'Enter a valid email address.' }),
+		password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+		confirmPassword: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+	})
+	.refine((data) => data.password === data.confirmPassword, {
+		message: "Passwords don't match.",
+		path: ['confirmPassword'],
+	})
 
 export function RegisterForm({
 	className,
 	...props
 }: React.ComponentProps<'div'>) {
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			email: '',
+			password: '',
+			confirmPassword: '',
+		},
+	})
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		// Do something with the form values.
+		// ✅ This will be type-safe and validated.
+		console.log(values)
+	}
+
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
 			<Card>
@@ -16,8 +53,8 @@ export function RegisterForm({
 					<CardTitle className='text-xl'>Create an account</CardTitle>
 				</CardHeader>
 				<CardContent>
-					<form>
-						<div className='grid gap-6'>
+					<Form {...form}>
+						<form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-6'>
 							<div className='flex flex-col gap-4'>
 								<Button variant='outline' className='w-full'>
 									<svg
@@ -38,31 +75,49 @@ export function RegisterForm({
 								</span>
 							</div>
 							<div className='grid gap-6'>
-								<div className='grid gap-3'>
-									<Label htmlFor='email'>Email</Label>
-									<Input
-										id='email'
-										type='email'
-										placeholder='m@example.com'
-										required
-									/>
-								</div>
-								<div className='grid gap-3'>
-									<Label htmlFor='password'>Password</Label>
-									<Input
-										id='password'
-										type='password'
-										required
-									/>
-								</div>
-                                <div className='grid gap-3'>
-									<Label htmlFor='confirm-password'>Confirm Password</Label>
-									<Input
-										id='confirm-password'
-										type='password'
-										required
-									/>
-								</div>
+								<FormField
+									control={form.control}
+									name='email'
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Email</FormLabel>
+											<FormControl>
+												<Input
+													type='email'
+													placeholder='m@example.com'
+													{...field}
+												/>
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name='password'
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Password</FormLabel>
+											<FormControl>
+												<Input type='password' {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+								<FormField
+									control={form.control}
+									name='confirmPassword'
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel>Confirm Password</FormLabel>
+											<FormControl>
+												<Input type='password' {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
 								<Button type='submit' className='w-full'>
 									Create account
 								</Button>
@@ -76,8 +131,8 @@ export function RegisterForm({
 									Sign in
 								</Link>
 							</div>
-						</div>
-					</form>
+						</form>
+					</Form>
 				</CardContent>
 			</Card>
 			<div className='text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4'>
