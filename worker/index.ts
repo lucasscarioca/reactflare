@@ -1,12 +1,9 @@
-export default {
-  fetch(request) {
-    const url = new URL(request.url);
+import { app } from './server/api'
 
-    if (url.pathname.startsWith("/api/")) {
-      return Response.json({
-        name: "Cloudflare",
-      });
-    }
-		return new Response(null, { status: 404 });
+export type AppType = typeof app
+
+export default {
+  fetch(request, env, ctx) {
+    return app.fetch(request, env, ctx)
   },
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<Env>
