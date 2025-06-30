@@ -1,21 +1,21 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "types": ["./worker-configuration.d.ts"]
-  },
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.worker.json"
-    }
-  ],
-  "files": []
+	"files": [],
+	"references": [
+		{
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "./tsconfig.node.json"
+		},
+		{
+			"path": "./tsconfig.worker.json"
+		}
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"types": ["./worker-configuration.d.ts"]
+	}
 }

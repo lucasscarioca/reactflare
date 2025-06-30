@@ -9,4 +9,11 @@
 	"observability": {
 		"enabled": true,
 	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "reactflare-db",
+			"database_id": "3ec3db50-dd93-42c8-a602-653c2b1f380d",
+		},
+	],
 }
