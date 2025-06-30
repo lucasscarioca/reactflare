@@ -11,6 +11,10 @@
     "preview": "bun run build && vite preview",
     "deploy": "bun run build && wrangler deploy",
     "cf-typegen": "wrangler types",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "drizzle:dev": "drizzle-kit studio",
+    "local:migrate": "wrangler d1 migrations apply reactflare-db --local",
     "prepare": "husky"
   },
   "dependencies": {
