@@ -4,10 +4,10 @@ This template provides a minimal setup to get React working in Vite backed by Ho
 
 ## Stack
 
-- [X] React + Vite
-- [X] Shadcn + Tailwindcss
-- [X] Hono + Zod (honoRPC for client side)
-- [X] Cloudflare Infra (Workers, KV, D1, R2, Durable Objects, AI, etc.)
-- [X] DrizzleORM
+- [x] React + Vite
+- [x] Shadcn + Tailwindcss
+- [x] Hono + Zod (honoRPC for client side)
+- [x] Cloudflare Infra (Workers, KV, D1, R2, Durable Objects, AI, etc.)
+- [x] DrizzleORM
 - [ ] Better Auth
 - [ ] Stripe
